@@ -203,8 +203,65 @@ filter = [CIFilter filterWithName:@"CISepiaTone"
     CGImageRelease(cgimg);
 }
 ```
+这段代码从slider获取float value，slide的value从0-1，刚好和CIFilter里的值的范围一样，这样很方便，可以直接拿来用。
 
+编译运行，你移动slide，你会发现不同的效果，效果如下：
 
+![][1]
+[1]:http://cdn4.raywenderlich.com/wp-content/uploads/2012/09/SliderFilter.png
+
+#从相册里获取照片
+现在可以动态的改变filter的value，这看起来很有意思。但是仅仅是对这个固定的图片进行滤镜很没劲，下面使用UIImagePickerController获取相册的图片，并惊醒滤镜处理。
+
+创建一个按钮，用来打开相册。界面如下：
+![][1]
+[1]:http://cdn3.raywenderlich.com/wp-content/uploads/2012/09/AddingButton.png
+
+实现这个按钮的点击方法loadPhoto，代码如下：
+
+```
+- (IBAction)loadPhoto:(id)sender {
+    UIImagePickerController *pickerC = 
+      [[UIImagePickerController alloc] init];
+    pickerC.delegate = self;
+    [self presentViewController:pickerC animated:YES completion:nil];
+}
+```
+第一行实例化一个UIImagePickerController，并把self设为它的delegate。
+
+这里会有一个警告，你需要实现UIImagePickerControllerDelegate 和UINaviationControllerDelegate协议。代码如下：
+
+```
+@interface ViewController () <UIImagePickerControllerDelegate, UINavigationBarDelegate>
+@end
+
+- (void)imagePickerController:(UIImagePickerController *)picker 
+  didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"%@", info);
+}
+ 
+- (void)imagePickerControllerDidCancel:
+  (UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+```
+在这两个方法中，都是dimiss UIPickerController。
+
+第一个方法还没有完全实现，下面是完整的实现：
+
+```
+- (void)imagePickerController:(UIImagePickerController *)picker
+  didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage *gotImage =
+      [info objectForKey:UIImagePickerControllerOriginalImage];
+    beginImage = [CIImage imageWithCGImage:gotImage.CGImage];
+    [filter setValue:beginImage forKey:kCIInputImageKey];
+    [self amountSliderValueChanged:self.amountSlider];
+}
+```
+完整的例子在[这里]:
 
 
 
