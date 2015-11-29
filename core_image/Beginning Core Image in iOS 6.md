@@ -15,7 +15,20 @@ core image的多个滤镜可以合在一起，同一时间处理视频帧或者�
 接下来在你的工程中会使用到这些类。
 
 #开始
-打开Xcode，创建一个新的工程，
+打开Xcode，创建一个新的single view application工程，工程名为CoreImageFun，选择Device为iPhone。
+
+创建好工程的第一件事就是把Core Image framework加入到工程中，在Mac平台，coreimage framework是QuartzCore framework的一部分，在iOS平台上它是独立的framework。怎么给工程添加framework，这里就不细说了，不会的请查看相关文档。
+
+接下来，下载项目中会用到的(资源)[]
+
+
+
+
+
+
+
+
+
 
 
 
