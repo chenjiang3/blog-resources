@@ -261,7 +261,9 @@ filter = [CIFilter filterWithName:@"CISepiaTone"
     [self amountSliderValueChanged:self.amountSlider];
 }
 ```
-完整的例子在[这里]:
+完整的例子在[这里](https://raw.githubusercontent.com/chenjiang3/blog-resources/master/resource/CoreImageFun.zip)
+
+参考文献：[http://www.raywenderlich.com/22167/beginning-core-image-in-ios-6](http://www.raywenderlich.com/22167/beginning-core-image-in-ios-6)
 
 
 
